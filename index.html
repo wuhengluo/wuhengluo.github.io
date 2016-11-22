@@ -78,15 +78,16 @@ sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/t
 </p><p>
 A more elegant way to install, also on the notebook, is to use Python “try … except” clauses to cover possible scenarios (again, remember to replace ):
 <p></p>
-
-<p>try:<br>
-    import tensorflow as tf<br>
-    print "TensorFlow is already installed"<br>
-except ImportError:<br>
-    print "Installing TensorFlow"<br>
-    import subprocess<br>
-    subprocess.check_call(["/databricks/python/bin/pip", "install",<br> 
+<pre><code>
+try:
+    import tensorflow as tf
+    print "TensorFlow is already installed"
+except ImportError:
+    print "Installing TensorFlow"
+    import subprocess
+    subprocess.check_call(["/databricks/python/bin/pip", "install",
         "<a href="https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-">https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-</a>-cp27-none-linux_x86_64.whl"])<br>
+</code></pre>
 <p>
 After the installation is done, you also need to make sure the installed framework is available.  Rather than open a new notebook as mentioned before with Google Datalab, on the Databricks Spark notebook, click the dropdown on top left corner, do “detach” the cluster, then “attach” the cluster one more time to enable TensorFlow just installed.  Now you are ready to run distributed TensorFlow jobs on your notebook.  Databricks has a sample Spark notebook source code, “Distributed processing of images using TensorFlow”, available <a href="http://go.databricks.com/hubfs/notebooks/TensorFlow/Distributed_processing_of_images_using_TensorFlow.html">here</a>, so give it a try.</p></p></p></p></p></p>
 
