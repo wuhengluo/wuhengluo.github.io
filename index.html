@@ -17,7 +17,8 @@
 
     <section class="main-content">
       <h2>
-  Run Machine Intelligence as AlphaGo Does: TensorFlow on Single Machine, in Cluster or Cloud
+  Run Machine Intelligence as AlphaGo Does: 
+  TensorFlow on Single Machine, in Cluster or Cloud
       </h2>        
 by Wuheng Luo 
 <p>05.18.2016
@@ -44,7 +45,7 @@ This will download the latest TensorFlow CPU version to your machine.  This imag
 The command above with parameters “sh –c” will launch TensorFlow with Jupyter started at the notebook doc root /notebook internally inside the TensorFlow instance.  The Docker command option “-v” provides a mechanism to map an external location of your local file system to this internal doc root path.  That way, if you have existing notebook .ipynb files in your file location specified, they will be listed on the homepage under “Files” when TensorFlow is started with Jupyter notebook.  The benefit of using –v option to map an external local file location to the container is that the user can start, stop, destroy, or recycle a TensorFlow instance at will without losing any coding artifact.  One thing to remember for the execution command above is to replace  with your own actual file location.
 <p> 
 Another way to run TensorFlow is to do it in distributed mode on a cluster rather than on a single machine.  For that a good option is to use Google Cloud Datalab, where you can attach a TensorFlow enabled notebook to a cluster on Google Cloud Platform, and run distributed deep neural network models there.  As of this writing, Google Cloud Datalab is still in beta version.  A Google account is required to proceed.  If you already have an account and also have a cluster provisioned, go to <a href="https://cloud.google.com/datalab/">https://cloud.google.com/datalab/</a> to launch the datalab.  After signed in, you need to select an existing cloud project or create a new one, in which to deploy the datalab.  Once the deployment is done, you will see the Datalab Notebook home page, where you can create new notebooks or select saved notebooks to work on, and upload your data, etc.  Datalab has a version of TensorFlow pre-installed.  You can open a new notebook and test that by entering the Python code “import tensorflow as tf” and press Shift+Enter keys on your keyboard to run the command.  If it does not return any error, you are ready to run your TensorFlow jobs, at least in single machine mode.
-</p><p>
+<p>
 If you want to run TensorFlow in a cluster’s distributed mode, you need to run one more test.  Enter this code block in your Datalab notebook to see whether that gives you any error:
 <p>
 <pre><code>       
