@@ -16,11 +16,11 @@
     </section>
 
     <section class="main-content">
-      <h1></h1>
-
-<p>Run Machine Intelligence as AlphaGo Does: TensorFlow on Single Machine, in Cluster or Cloud
+      <h2>
+  Run Machine Intelligence as AlphaGo Does: TensorFlow on Single Machine, in Cluster or Cloud
+      </h2>        
 <br>
-by Wuheng Luo </p>
+by Wuheng Luo 
 
 <h3></h3>
 
@@ -50,32 +50,35 @@ The command above with parameters “sh –c” will launch TensorFlow with Jupy
 Another way to run TensorFlow is to do it in distributed mode on a cluster rather than on a single machine.  For that a good option is to use Google Cloud Datalab, where you can attach a TensorFlow enabled notebook to a cluster on Google Cloud Platform, and run distributed deep neural network models there.  As of this writing, Google Cloud Datalab is still in beta version.  A Google account is required to proceed.  If you already have an account and also have a cluster provisioned, go to <a href="https://cloud.google.com/datalab/">https://cloud.google.com/datalab/</a> to launch the datalab.  After signed in, you need to select an existing cloud project or create a new one, in which to deploy the datalab.  Once the deployment is done, you will see the Datalab Notebook home page, where you can create new notebooks or select saved notebooks to work on, and upload your data, etc.  Datalab has a version of TensorFlow pre-installed.  You can open a new notebook and test that by entering the Python code “import tensorflow as tf” and press Shift+Enter keys on your keyboard to run the command.  If it does not return any error, you are ready to run your TensorFlow jobs, at least in single machine mode.
 </p><p><br>
 If you want to run TensorFlow in a cluster’s distributed mode, you need to run one more test.  Enter this code block in your Datalab notebook to see whether that gives you any error:
-</p><p>
-    import tensorflow as tf<br><br>
-    c = tf.constant("Hello, distributed TensorFlow!")<br>
-    server = tf.train.Server.create_local_server()<br>
-    sess = tf.Session(server.target)  # Create a session on the server.<br>
-    sess.run(c)<br>
-</p><p>
+<p>
+<pre><code>       
+    import tensorflow as tf
+    
+    c = tf.constant("Hello, distributed TensorFlow!")
+    server = tf.train.Server.create_local_server()
+    sess = tf.Session(server.target)  # Create a session on the server.
+    sess.run(c)
+</code></pre>    
+<p>
 Line 3 of the code, “tf.train.Server.create_local_server()”, is the syntax only for distributed TensorFlow.  If that line returns an error: “AttributeError: 'module' object has no attribute 'Server'”, your pre-installed TensorFlow version needs an upgrade.  You can do the upgrade by yourself with a few steps.  First, go to the TensorFlow official site, <a href="https://www.tensorflow.org/">https://www.tensorflow.org/</a> and click on one of the top level menus such as “API” to find out the latest version, indicated on top of the left navigation panel.  Second, in your notebook, enable bash shell mode by entering the imperative directive: “%%bash” in order to run a re-installation.  Third, enter the command below to upgrade (make sure to replace  with the version you found in step 1, e.g. 0.8.0.<br>
 <p>
-<code>
+<pre><code> 
 %%bash
 pip install protobuf==3.0.0b2.post2 &amp;&amp; \
     wget https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-&lt;version#&gt;-cp27-none-linux_x86_64.whl &amp;&amp; \
     pip install tensorflow-&lt;version#&gt;-cp27-none-linux_x86_64.whl &amp;&amp; \
     rm tensorflow-&lt;version#&gt;-cp27-none-linux_x86_64.whl
-</code>
+</code></pre>  
 </p><p>
 The notebook will display installation log messages, and if things go well, you will see log info:  “Successfully installed tensorflow protobuf ...”.  To test the upgraded TensorFlow version, make sure you open a new notebook, not in the existing notebook where you issued “pip install” command, since that one is already attached to the cluster with original configuration in cache.  In a new notebook, run the code block above that contains the line “server = tf.train.Server.create_local_server()”.  This time, if the execution does not generate errors, you will see a message returned: “'Hello, distributed TensorFlow!'”.  Now you are ready to explore and enjoy the power of distributed deep neural network frameworks as AlphaGo does.</p>
 
 <p>There is one more approach to running TensorFlow in a cluster of distributed nodes, that is, through Apache Spark.  Spark vendor Databricks published a technical blog on TensorFlow performance in Spark, and their benchmarks showed “34% lower error rate” and “7x speedup” in performance using a cluster of 13 nodes (vs. a single machine).  A quick way to set up a TensorFlow enabled Spark environment is to go to the cloud, and Databricks recently released their beta Databricks Community Edition (DCE).  DCE currently has a Spark 2.0 preview available for their notebooks, so if you have a DCE account, you are able to try forthcoming latest Spark features.  To try TensorFlow with Spark combination on DCE, the first thing to do after logging in, is to install TensorFlow, since Apache Spark distribution does not include TensorFlow by default (verify this by running the import command on a DCE notebook, “import tensorflow as tf”, and it shall return an error: “ImportError: No module named tensorflow”).  A quick way to install is to use the %sh directive on the notebook, again make sure to replace  in the command with the latest TensorFlow version number: 
 <p>
-<code>
+<pre><code>  
 %sh
 sudo pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-&lt;version#&gt;-cp27-none-linux_x86_64.whl  
-</code><br>
-</p><p>
+</code></pre>
+<p>
 A more elegant way to install, also on the notebook, is to use Python “try … except” clauses to cover possible scenarios (again, remember to replace ):
 <p></p>
 <pre><code>
